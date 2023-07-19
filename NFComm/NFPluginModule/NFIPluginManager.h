@@ -61,7 +61,7 @@ public:
 class NFReplaceContent
 {
 public:
-	NFReplaceContent(const std::string content, const std::string newValue)
+	NFReplaceContent(const std::string& content, const std::string& newValue)
 	{
 		this->content = content;
 		this->newValue = newValue;

@@ -64,6 +64,7 @@
 /Dependencies/libevent
 /Dependencies/lua
 /Dependencies/protobuf
+/Dependencies/vcpkg_for_nf
 
 /cmake-build-debug/*
 /cmake-build-release/*
