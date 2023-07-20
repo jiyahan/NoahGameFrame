@@ -3195,7 +3195,8 @@ class Writer : base::NoCopy {
   }
 
   Writer(LogMessage* msg, base::DispatchAction dispatchAction = base::DispatchAction::NormalLog) :
-    m_msg(msg), m_level(msg != nullptr ? msg->level() : Level::Unknown),
+    m_msg(msg), m_level(msg != nullptr ? msg->level() : Level::Unknown),m_file(nullptr),
+    m_func(nullptr), m_verboseLevel(0),
     m_line(0), m_logger(nullptr), m_proceed(false), m_dispatchAction(dispatchAction) {
   }
 

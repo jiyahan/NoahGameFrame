@@ -33,7 +33,7 @@ class NFIRecord;
 
 struct RECORD_EVENT_DATA
 {
-	enum RecordOptype
+	enum class RecordOptype
 	{
 		Add = 0,
 		Del,//before del
@@ -49,9 +49,10 @@ struct RECORD_EVENT_DATA
 	};
 	RECORD_EVENT_DATA()
 	{
-		nOpType = UNKNOW;
+		nOpType = RecordOptype::UNKNOW;
 		row = 0;
 		col = 0;
+		recordData = nullptr;
 	}
 
 	RecordOptype nOpType;

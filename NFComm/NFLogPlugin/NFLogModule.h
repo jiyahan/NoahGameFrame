@@ -92,12 +92,12 @@ protected:
 
 private:
 
-	NFIKernelModule* m_pKernelModule;
+	NFIKernelModule* m_pKernelModule = nullptr;
 
     std::string mstrLocalStream;
     LOG_HOOKER_FUNCTOR_PTR mLogHooker;
     static unsigned int idx;
-    uint64_t mnLogCountTotal;
+    uint64_t mnLogCountTotal = 0;
 	std::list<NFPerformance> mxPerformanceList;
 };
 

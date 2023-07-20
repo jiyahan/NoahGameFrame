@@ -58,7 +58,11 @@ void NFLogModule::rolloutHandler(const char* filename, std::size_t size)
     if (!CheckLogFileExist(filename))
     {
         stream << filename << "." << idx;
-        rename(filename, stream.str().c_str());
+        int ret = rename(filename, stream.str().c_str());
+        if (ret < 0)
+        {
+            std::cout << "rolloutHandler Error!!!!" << std::endl;
+        }
     }
 }
 
@@ -181,32 +185,32 @@ bool NFLogModule::Log(const NF_LOG_LEVEL nll, const char* format, ...)
 
     switch (nll)
     {
-        case NFILogModule::NLL_DEBUG_NORMAL:
+        case NFILogModule::NF_LOG_LEVEL::NLL_DEBUG_NORMAL:
 			{
 				std::cout << termcolor::green;
 				LOG(DEBUG) << mstrLocalStream;
 			}
 			break;
-        case NFILogModule::NLL_INFO_NORMAL:
+        case NFILogModule::NF_LOG_LEVEL::NLL_INFO_NORMAL:
 			{
 				std::cout << termcolor::green;
 				LOG(INFO) << mstrLocalStream;
 			}	
 			break;
-        case NFILogModule::NLL_WARING_NORMAL:
+        case NFILogModule::NF_LOG_LEVEL::NLL_WARING_NORMAL:
 			{
 				std::cout << termcolor::yellow;
 				LOG(WARNING) << mstrLocalStream;
 			}
 			break;
-        case NFILogModule::NLL_ERROR_NORMAL:
+        case NFILogModule::NF_LOG_LEVEL::NLL_ERROR_NORMAL:
 			{
 				std::cout << termcolor::red;
 				LOG(ERROR) << mstrLocalStream;
 				//LogStack();
 			}
 			break;
-        case NFILogModule::NLL_FATAL_NORMAL:
+        case NFILogModule::NF_LOG_LEVEL::NLL_FATAL_NORMAL:
 			{
 				std::cout << termcolor::red;
 				LOG(FATAL) << mstrLocalStream;
@@ -296,21 +300,25 @@ bool NFLogModule::ChangeLogLevel(const std::string& strLevel)
         {
             el::Configuration errorConfiguration(el::Level::Error, el::ConfigurationType::Enabled, "false");
             pConfigurations->set(&errorConfiguration);
+            break;
         }
         case el::Level::Error:
         {
             el::Configuration warnConfiguration(el::Level::Warning, el::ConfigurationType::Enabled, "false");
             pConfigurations->set(&warnConfiguration);
+            break;
         }
         case el::Level::Warning:
         {
             el::Configuration infoConfiguration(el::Level::Info, el::ConfigurationType::Enabled, "false");
             pConfigurations->set(&infoConfiguration);
+            break;
         }
         case el::Level::Info:
         {
             el::Configuration debugConfiguration(el::Level::Debug, el::ConfigurationType::Enabled, "false");
             pConfigurations->set(&debugConfiguration);
+            break;
 
         }
         case el::Level::Debug:

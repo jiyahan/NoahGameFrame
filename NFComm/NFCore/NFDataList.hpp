@@ -55,7 +55,7 @@
 
 
 
-enum NFDATA_TYPE
+enum class NFDATA_TYPE
 {
     TDATA_UNKNOWN,  
     TDATA_INT,      
@@ -79,7 +79,7 @@ struct NFData
 public:
 	NFData()
 	{
-		type = TDATA_UNKNOWN;
+		type = NFDATA_TYPE::TDATA_UNKNOWN;
 	}
 
 	NFData(NFDATA_TYPE eType)
@@ -138,7 +138,7 @@ public:
 
 	~NFData()
 	{
-		type = TDATA_UNKNOWN;
+		type = NFDATA_TYPE::TDATA_UNKNOWN;
 	}
 
 	inline bool operator==(const NFData& src) const
@@ -148,7 +148,7 @@ public:
 		{
 			switch (GetType())
 			{
-			case TDATA_INT:
+			case NFDATA_TYPE::TDATA_INT:
 			{
 				if (src.GetInt() == GetInt())
 				{
@@ -156,7 +156,7 @@ public:
 				}
 			}
 			break;
-			case TDATA_FLOAT:
+			case NFDATA_TYPE::TDATA_FLOAT:
 			{
 				double fValue = GetFloat() - src.GetFloat();
 				if (fValue < 0.001  && fValue > -0.001)
@@ -165,7 +165,7 @@ public:
 				}
 			}
 			break;
-			case TDATA_STRING:
+			case NFDATA_TYPE::TDATA_STRING:
 			{
 				if (src.GetString() == GetString())
 				{
@@ -173,7 +173,7 @@ public:
 				}
 			}
 			break;
-			case TDATA_OBJECT:
+			case NFDATA_TYPE::TDATA_OBJECT:
 			{
 				if (src.GetObject() == GetObject())
 				{
@@ -181,7 +181,7 @@ public:
 				}
 			}
 			break;
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 			{
 				if (src.GetVector2() == GetVector2())
 				{
@@ -189,7 +189,7 @@ public:
 				}
 			}
 			break;
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 			{
 				if (src.GetVector3() == GetVector3())
 				{
@@ -208,7 +208,7 @@ public:
 	void Reset()
 	{
 		variantData = std::variant<NFINT64, double, std::string, NFGUID, NFVector2, NFVector3>();
-		type = TDATA_UNKNOWN;
+		type = NFDATA_TYPE::TDATA_UNKNOWN;
 		/*switch (GetType())
 		{
 			case TDATA_INT:
@@ -252,7 +252,7 @@ public:
 
 		switch (GetType())
 		{
-		case TDATA_INT:
+		case NFDATA_TYPE::TDATA_INT:
 		{
 			if (0 != GetInt())
 			{
@@ -260,7 +260,7 @@ public:
 			}
 		}
 		break;
-		case TDATA_FLOAT:
+		case NFDATA_TYPE::TDATA_FLOAT:
 		{
 			double fValue = GetFloat();
 			if (fValue > 0.001 || fValue < -0.001)
@@ -269,7 +269,7 @@ public:
 			}
 		}
 		break;
-		case TDATA_STRING:
+		case NFDATA_TYPE::TDATA_STRING:
 		{
 			const std::string& strData = GetString();
 			if (!strData.empty())
@@ -278,7 +278,7 @@ public:
 			}
 		}
 		break;
-		case TDATA_OBJECT:
+		case NFDATA_TYPE::TDATA_OBJECT:
 		{
 			if (!GetObject().IsNull())
 			{
@@ -286,7 +286,7 @@ public:
 			}
 		}
 		break;
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 		{
 			if (!GetVector2().IsZero())
 			{
@@ -294,7 +294,7 @@ public:
 			}
 		}
 		break;
-		case TDATA_VECTOR3:
+		case NFDATA_TYPE::TDATA_VECTOR3:
 		{
 			if (!GetVector3().IsZero())
 			{
@@ -317,61 +317,61 @@ public:
 
 	void SetInt(const NFINT64 var)
 	{
-		if (type == TDATA_INT || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_INT || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_INT;
+			type = NFDATA_TYPE::TDATA_INT;
 			variantData = (NFINT64)var;
 		}
 	}
 
 	void SetFloat(const double var)
 	{
-		if (type == TDATA_FLOAT || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_FLOAT || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_FLOAT;
+			type = NFDATA_TYPE::TDATA_FLOAT;
 			variantData = (double)var;
 		}
 	}
 
 	void SetString(const std::string& var)
 	{
-		if (type == TDATA_STRING || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_STRING || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_STRING;
+			type = NFDATA_TYPE::TDATA_STRING;
 			variantData = (std::string)var;
 		}
 	}
 
 	void SetObject(const NFGUID var)
 	{
-		if (type == TDATA_OBJECT || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_OBJECT || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_OBJECT;
+			type = NFDATA_TYPE::TDATA_OBJECT;
 			variantData = (NFGUID)var;
 		}
 	}
 
 	void SetVector2(const NFVector2 var)
 	{
-		if (type == TDATA_VECTOR2 || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_VECTOR2 || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_VECTOR2;
+			type = NFDATA_TYPE::TDATA_VECTOR2;
 			variantData = (NFVector2)var;
 		}
 	}
 
 	void SetVector3(const NFVector3 var)
 	{
-		if (type == TDATA_VECTOR3 || TDATA_UNKNOWN == type)
+		if (type == NFDATA_TYPE::TDATA_VECTOR3 || NFDATA_TYPE::TDATA_UNKNOWN == type)
 		{
-			type = TDATA_VECTOR3;
+			type = NFDATA_TYPE::TDATA_VECTOR3;
 			variantData = (NFVector3)var;
 		}
 	}
 
 	NFINT64 GetInt() const
 	{
-		if (TDATA_INT == type)
+		if (NFDATA_TYPE::TDATA_INT == type)
 		{
 			return std::get<NFINT64>(variantData);
 		}
@@ -381,7 +381,7 @@ public:
 
 	int GetInt32() const
 	{
-		if (TDATA_INT == type)
+		if (NFDATA_TYPE::TDATA_INT == type)
 		{
 			return (int)std::get<NFINT64>(variantData);
 		}
@@ -391,7 +391,7 @@ public:
 
 	double GetFloat() const
 	{
-		if (TDATA_FLOAT == type)
+		if (NFDATA_TYPE::TDATA_FLOAT == type)
 		{
 			return std::get<double>(variantData);
 		}
@@ -400,7 +400,7 @@ public:
 	}
 	const std::string& GetString() const
 	{
-		if (TDATA_STRING == type)
+		if (NFDATA_TYPE::TDATA_STRING == type)
 		{
 			return std::get<std::string>(variantData);
 		}
@@ -410,7 +410,7 @@ public:
 
 	const NFGUID& GetObject() const
 	{
-		if (TDATA_OBJECT == type)
+		if (NFDATA_TYPE::TDATA_OBJECT == type)
 		{
 			return std::get<NFGUID>(variantData);
 		}
@@ -420,7 +420,7 @@ public:
 
 	const NFVector2& GetVector2() const
 	{
-		if (TDATA_VECTOR2 == type)
+		if (NFDATA_TYPE::TDATA_VECTOR2 == type)
 		{
 			return std::get<NFVector2>(variantData);
 		}
@@ -430,7 +430,7 @@ public:
 
 	const NFVector3& GetVector3() const
 	{
-		if (TDATA_VECTOR3 == type)
+		if (NFDATA_TYPE::TDATA_VECTOR3 == type)
 		{
 			return std::get<NFVector3>(variantData);
 		}
@@ -444,27 +444,27 @@ public:
 
 		switch (type)
 		{
-		case TDATA_INT:
+		case NFDATA_TYPE::TDATA_INT:
 			strData = lexical_cast<std::string> (GetInt());
 			break;
 
-		case TDATA_FLOAT:
+		case NFDATA_TYPE::TDATA_FLOAT:
 			strData = lexical_cast<std::string> (GetFloat());
 			break;
 
-		case TDATA_STRING:
+		case NFDATA_TYPE::TDATA_STRING:
 			strData = GetString();
 			break;
 
-		case TDATA_OBJECT:
+		case NFDATA_TYPE::TDATA_OBJECT:
 			strData = GetObject().ToString();
 			break;
 
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 			strData = GetVector2().ToString();
 			break;
 
-		case TDATA_VECTOR3:
+		case NFDATA_TYPE::TDATA_VECTOR3:
 			strData = GetVector3().ToString();
 			break;
 
@@ -481,19 +481,19 @@ public:
 		{
 			switch (type)
 			{
-			case TDATA_INT:
+			case NFDATA_TYPE::TDATA_INT:
 				SetInt(lexical_cast<int64_t> (strData));
 				break;
 
-			case TDATA_FLOAT:
+			case NFDATA_TYPE::TDATA_FLOAT:
 				SetFloat(lexical_cast<float> (strData));
 				break;
 
-			case TDATA_STRING:
+			case NFDATA_TYPE::TDATA_STRING:
 				SetString(strData);
 				break;
 
-			case TDATA_OBJECT:
+			case NFDATA_TYPE::TDATA_OBJECT:
 			{
 				NFGUID xID;
 				xID.FromString(strData);
@@ -501,7 +501,7 @@ public:
 			}
 			break;
 
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 			{
 				NFVector2 v;
 				v.FromString(strData);
@@ -509,7 +509,7 @@ public:
 			}
 			break;
 
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 			{
 				NFVector3 v;
 				v.FromString(strData);
@@ -605,27 +605,27 @@ public:
 			const NFDATA_TYPE eType = Type(index);
 			switch (eType)
 			{
-			case TDATA_INT:
+			case NFDATA_TYPE::TDATA_INT:
 				strData = lexical_cast<std::string> (Int(index));
 				break;
 
-			case TDATA_FLOAT:
+			case NFDATA_TYPE::TDATA_FLOAT:
 				strData = lexical_cast<std::string> (Float(index));
 				break;
 
-			case TDATA_STRING:
+			case NFDATA_TYPE::TDATA_STRING:
 				strData = String(index);
 				break;
 
-			case TDATA_OBJECT:
+			case NFDATA_TYPE::TDATA_OBJECT:
 				strData = Object(index).ToString();
 				break;
 
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 				strData = Vector2(index).ToString();
 				break;
 
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 				strData = Vector3(index).ToString();
 				break;
 
@@ -701,30 +701,30 @@ public:
     
 	virtual bool Append(const NFData& xData)
 	{
-		if (xData.GetType() <= TDATA_UNKNOWN
-			|| xData.GetType() >= TDATA_MAX)
+		if (xData.GetType() <= NFDATA_TYPE::TDATA_UNKNOWN
+			|| xData.GetType() >= NFDATA_TYPE::TDATA_MAX)
 		{
 			return false;
 		}
 
 		switch (xData.GetType())
 		{
-		case TDATA_INT:
+		case NFDATA_TYPE::TDATA_INT:
 			AddInt(xData.GetInt());
 			break;
-		case TDATA_FLOAT:
+		case NFDATA_TYPE::TDATA_FLOAT:
 			AddFloat(xData.GetFloat());
 			break;
-		case TDATA_OBJECT:
+		case NFDATA_TYPE::TDATA_OBJECT:
 			AddObject(xData.GetObject());
 			break;
-		case TDATA_STRING:
+		case NFDATA_TYPE::TDATA_STRING:
 			AddString(xData.GetString());
 			break;
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 			AddVector2(xData.GetVector2());
 			break;
-		case TDATA_VECTOR3:
+		case NFDATA_TYPE::TDATA_VECTOR3:
 			AddVector3(xData.GetVector3());
 			break;
 		default:
@@ -762,7 +762,7 @@ public:
 	{
 		if (!ValidIndex(index))
 		{
-			return TDATA_UNKNOWN;
+			return NFDATA_TYPE::TDATA_UNKNOWN;
 		}
 
 		if (index < STACK_SIZE)
@@ -778,7 +778,7 @@ public:
 			}
 		}
 
-		return TDATA_UNKNOWN;
+		return NFDATA_TYPE::TDATA_UNKNOWN;
 	}
     
 	virtual bool TypeEx(const  int type, ...) const
@@ -786,18 +786,18 @@ public:
 
 		bool bRet = true;
 
-		if (TDATA_UNKNOWN == type)
+		if (NFDATA_TYPE::TDATA_UNKNOWN == static_cast<NFDATA_TYPE>(type))
 		{
 			bRet = false;
 			return bRet;
 		}
 
-		NFDATA_TYPE pareType = (NFDATA_TYPE)type;
+		NFDATA_TYPE pareType = static_cast<NFDATA_TYPE>(type);
 		va_list arg_ptr;
 		va_start(arg_ptr, type);
 		int index = 0;
 
-		while (pareType != TDATA_UNKNOWN)
+		while (pareType != NFDATA_TYPE::TDATA_UNKNOWN)
 		{
 
 			NFDATA_TYPE varType = Type(index);
@@ -963,7 +963,7 @@ public:
 
 	virtual bool Set(const int index, const NFINT64 value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_INT)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_INT)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -979,7 +979,7 @@ public:
 
 	virtual bool Set(const int index, const double value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_FLOAT)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_FLOAT)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -995,7 +995,7 @@ public:
 
 	virtual bool Set(const int index, const std::string& value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_STRING)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_STRING)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -1011,7 +1011,7 @@ public:
 
 	virtual bool Set(const int index, const NFGUID& value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_OBJECT)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_OBJECT)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -1027,7 +1027,7 @@ public:
 
 	virtual bool Set(const int index, const NFVector2& value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_VECTOR2)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_VECTOR2)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -1043,7 +1043,7 @@ public:
 
 	virtual bool Set(const int index, const NFVector3& value)
 	{
-		if (ValidIndex(index) && Type(index) == TDATA_VECTOR3)
+		if (ValidIndex(index) && Type(index) == NFDATA_TYPE::TDATA_VECTOR3)
 		{
 			NF_SHARE_PTR<NFData> var = GetStack(index);
 			if (var)
@@ -1062,7 +1062,7 @@ public:
 	{
 		if (ValidIndex(index))
 		{
-			if (Type(index) == TDATA_INT)
+			if (Type(index) == NFDATA_TYPE::TDATA_INT)
 			{
 				const NF_SHARE_PTR<NFData> var = GetStack(index);
 				return var->GetInt();
@@ -1082,7 +1082,7 @@ public:
 		if (ValidIndex(index))
 		{
 			const NF_SHARE_PTR<NFData> var = mvList[index];
-			if (var && TDATA_FLOAT == var->GetType())
+			if (var && NFDATA_TYPE::TDATA_FLOAT == var->GetType())
 			{
 				return var->GetFloat();
 			}
@@ -1096,7 +1096,7 @@ public:
 		if (ValidIndex(index))
 		{
 			const NF_SHARE_PTR<NFData> var = mvList[index];
-			if (var && TDATA_STRING == var->GetType())
+			if (var && NFDATA_TYPE::TDATA_STRING == var->GetType())
 			{
 				return var->GetString();
 			}
@@ -1110,7 +1110,7 @@ public:
 		if (ValidIndex(index))
 		{
 			NFDATA_TYPE type = Type(index);
-			if (TDATA_OBJECT == type)
+			if (NFDATA_TYPE::TDATA_OBJECT == type)
 			{
 				NF_SHARE_PTR<NFData> var = GetStack(index);
 				if (var)
@@ -1128,7 +1128,7 @@ public:
 		if (ValidIndex(index))
 		{
 			NFDATA_TYPE type = Type(index);
-			if (TDATA_VECTOR2 == type)
+			if (NFDATA_TYPE::TDATA_VECTOR2 == type)
 			{
 				NF_SHARE_PTR<NFData> var = GetStack(index);
 				if (var)
@@ -1146,7 +1146,7 @@ public:
 		if (ValidIndex(index))
 		{
 			NFDATA_TYPE type = Type(index);
-			if (TDATA_VECTOR3 == type)
+			if (NFDATA_TYPE::TDATA_VECTOR3 == type)
 			{
 				NF_SHARE_PTR<NFData> var = GetStack(index);
 				if (var)
@@ -1223,27 +1223,27 @@ public:
         {
             switch (src.Type(nPos))
             {
-                case TDATA_INT:
+                case NFDATA_TYPE::TDATA_INT:
                     return Int(nPos) == src.Int(nPos);
                     break;
 
-                case TDATA_FLOAT:
+                case NFDATA_TYPE::TDATA_FLOAT:
                     return fabs(Float(nPos) - src.Float(nPos)) < 0.001f;
                     break;
 
-                case TDATA_STRING:
+                case NFDATA_TYPE::TDATA_STRING:
                     return String(nPos) == src.String(nPos);
                     break;
 
-                case TDATA_OBJECT:
+                case NFDATA_TYPE::TDATA_OBJECT:
                     return Object(nPos) == src.Object(nPos);
                     break;
 
-				case TDATA_VECTOR2:
+				case NFDATA_TYPE::TDATA_VECTOR2:
 					return Vector2(nPos) == src.Vector2(nPos);
 					break;
 
-				case TDATA_VECTOR3:
+				case NFDATA_TYPE::TDATA_VECTOR3:
 					return Vector3(nPos) == src.Vector3(nPos);
 					break;
 
@@ -1350,22 +1350,22 @@ protected:
 			NFDATA_TYPE vType = src.Type(i);
 			switch (vType)
 			{
-			case TDATA_INT:
+			case NFDATA_TYPE::TDATA_INT:
 				AddInt(src.Int(i));
 				break;
-			case TDATA_FLOAT:
+			case NFDATA_TYPE::TDATA_FLOAT:
 				AddFloat(src.Float(i));
 				break;
-			case TDATA_STRING:
+			case NFDATA_TYPE::TDATA_STRING:
 				AddString(src.String(i));
 				break;
-			case TDATA_OBJECT:
+			case NFDATA_TYPE::TDATA_OBJECT:
 				AddObject(src.Object(i));
 				break;
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 				AddVector2(src.Vector2(i));
 				break;
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 				AddVector3(src.Vector3(i));
 				break;
 			default:

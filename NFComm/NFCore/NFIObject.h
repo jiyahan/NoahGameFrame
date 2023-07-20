@@ -58,11 +58,13 @@ class _NFExport NFIObject :public NFMemoryCounter
 private:
 	NFIObject() : NFMemoryCounter(GET_CLASS_NAME(NFIObject), 1)
 	{
+        m_pPluginManager = nullptr;
 	}
 
 public:
     NFIObject(NFGUID self) : NFMemoryCounter(GET_CLASS_NAME(NFIObject), 1)
     {
+        m_pPluginManager = nullptr;
     }
 
     virtual ~NFIObject()

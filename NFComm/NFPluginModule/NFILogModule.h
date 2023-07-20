@@ -34,7 +34,7 @@ class NFILogModule
 
 public:
 
-    enum NF_LOG_LEVEL
+    enum class NF_LOG_LEVEL
     {
         NLL_DEBUG_NORMAL,
 		NLL_INFO_NORMAL,
