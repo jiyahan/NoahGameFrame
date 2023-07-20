@@ -161,7 +161,7 @@ NFDATA_TYPE NFClassModule::ComputerType(const char* pstrTypeName, NFData& var)
 		return var.GetType();
 	}
 
-    return TDATA_UNKNOWN;
+    return NFDATA_TYPE::TDATA_UNKNOWN;
 }
 
 bool NFClassModule::AddProperties(rapidxml::xml_node<>* pPropertyRootNode, NF_SHARE_PTR<NFIClass> pClass)
@@ -196,7 +196,7 @@ bool NFClassModule::AddProperties(rapidxml::xml_node<>* pPropertyRootNode, NF_SH
 			bool bUpload = lexical_cast<bool>(pstrUpload);
 
             NFData varProperty;
-            if (TDATA_UNKNOWN == ComputerType(pstrType, varProperty))
+            if (NFDATA_TYPE::TDATA_UNKNOWN == ComputerType(pstrType, varProperty))
             {
                 //std::cout << "error:" << pClass->GetTypeName() << "  " << pClass->GetInstancePath() << ": " << propertyName << " type error!!!" << std::endl;
 
@@ -270,7 +270,7 @@ bool NFClassModule::AddRecords(rapidxml::xml_node<>* pRecordRootNode, NF_SHARE_P
                 //const char* pstrColName = recordColNode->first_attribute( "Id" )->value();
                 NFData TData;
                 const char* pstrColType = recordColNode->first_attribute("Type")->value();
-                if (TDATA_UNKNOWN == ComputerType(pstrColType, TData))
+                if (NFDATA_TYPE::TDATA_UNKNOWN == ComputerType(pstrColType, TData))
                 {
                     //assert(0);
                     NFASSERT(0, pstrRecordName, __FILE__, __FUNCTION__);

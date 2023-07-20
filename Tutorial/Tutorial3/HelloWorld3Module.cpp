@@ -113,8 +113,8 @@ bool NFHelloWorld3Module::AfterInit()
 		return false;
 	}
 
-	pObject->GetPropertyManager()->AddProperty(pObject->Self(), "Hello", TDATA_STRING);
-	pObject->GetPropertyManager()->AddProperty(pObject->Self(), "World", TDATA_INT);
+	pObject->GetPropertyManager()->AddProperty(pObject->Self(), "Hello", NFDATA_TYPE::TDATA_STRING);
+	pObject->GetPropertyManager()->AddProperty(pObject->Self(), "World", NFDATA_TYPE::TDATA_INT);
 
 	pObject->AddPropertyCallBack("Hello", this, &NFHelloWorld3Module::OnPropertyStrCallBackEvent);
 	pObject->AddPropertyCallBack("World", this, &NFHelloWorld3Module::OnPropertyCallBackEvent);

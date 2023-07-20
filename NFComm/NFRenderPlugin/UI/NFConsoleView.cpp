@@ -71,7 +71,7 @@ bool NFConsoleView::Execute()
       for (int i = 0; i < mLogData.size(); i++)
       {
          const LogData& item_name = mLogData[i];
-         if (item_name.level == NFILogModule::NLL_DEBUG_NORMAL && logDebug)
+         if (item_name.level == NFILogModule::NF_LOG_LEVEL::NLL_DEBUG_NORMAL && logDebug)
          {
             //colour-->white
             bool render = true;
@@ -97,7 +97,7 @@ bool NFConsoleView::Execute()
                ImGui::PopStyleColor();
             }
          }
-         else if (item_name.level == NFILogModule::NLL_INFO_NORMAL && logInfo)
+         else if (item_name.level == NFILogModule::NF_LOG_LEVEL::NLL_INFO_NORMAL && logInfo)
          {
             //colour-->white
             bool render = true;
@@ -121,7 +121,7 @@ bool NFConsoleView::Execute()
                ImGui::PopStyleColor();
             }
          }
-         else if (item_name.level == NFILogModule::NLL_WARING_NORMAL && logWaring)
+         else if (item_name.level == NFILogModule::NF_LOG_LEVEL::NLL_WARING_NORMAL && logWaring)
          {
             //colour-->yellow
             bool render = true;
@@ -145,7 +145,7 @@ bool NFConsoleView::Execute()
                ImGui::PopStyleColor();
             }
          }
-         else if (item_name.level == NFILogModule::NLL_ERROR_NORMAL && logError)
+         else if (item_name.level == NFILogModule::NF_LOG_LEVEL::NLL_ERROR_NORMAL && logError)
          {
             //colour-->red
             bool render = true;
@@ -170,7 +170,7 @@ bool NFConsoleView::Execute()
                ImGui::PopStyleColor();
             }
          }
-         else if (item_name.level == NFILogModule::NLL_FATAL_NORMAL && logFatal)
+         else if (item_name.level == NFILogModule::NF_LOG_LEVEL::NLL_FATAL_NORMAL && logFatal)
          {
             //colour-->red
             bool render = true;

@@ -39,7 +39,7 @@ NFProperty::NFProperty()
 	mbUpload = false;
 
 	mSelf = NFGUID();
-	eType = TDATA_UNKNOWN;
+	eType = NFDATA_TYPE::TDATA_UNKNOWN;
 
 	msPropertyName = "";
 }
@@ -295,7 +295,7 @@ int NFProperty::OnEventHandler(const NFData& oldVar, const NFData& newVar, const
 
 bool NFProperty::SetInt(const NFINT64 value, const NFINT64 reason)
 {
-	if (eType != TDATA_INT)
+	if (eType != NFDATA_TYPE::TDATA_INT)
 	{
 		return false;
 	}
@@ -308,7 +308,7 @@ bool NFProperty::SetInt(const NFINT64 value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_INT));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_INT));
 		mxData->SetInt(0);
 	}
 
@@ -336,7 +336,7 @@ bool NFProperty::SetInt(const NFINT64 value, const NFINT64 reason)
 
 bool NFProperty::SetFloat(const double value, const NFINT64 reason)
 {
-	if (eType != TDATA_FLOAT)
+	if (eType != NFDATA_TYPE::TDATA_FLOAT)
 	{
 		return false;
 	}
@@ -349,7 +349,7 @@ bool NFProperty::SetFloat(const double value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_FLOAT));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_FLOAT));
 		mxData->SetFloat(0.0);
 	}
 
@@ -377,7 +377,7 @@ bool NFProperty::SetFloat(const double value, const NFINT64 reason)
 
 bool NFProperty::SetString(const std::string& value, const NFINT64 reason)
 {
-	if (eType != TDATA_STRING)
+	if (eType != NFDATA_TYPE::TDATA_STRING)
 	{
 		return false;
 	}
@@ -390,7 +390,7 @@ bool NFProperty::SetString(const std::string& value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_STRING));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_STRING));
 		mxData->SetString(NULL_STR);
 	}
 
@@ -418,7 +418,7 @@ bool NFProperty::SetString(const std::string& value, const NFINT64 reason)
 
 bool NFProperty::SetObject(const NFGUID& value, const NFINT64 reason)
 {
-	if (eType != TDATA_OBJECT)
+	if (eType != NFDATA_TYPE::TDATA_OBJECT)
 	{
 		return false;
 	}
@@ -431,7 +431,7 @@ bool NFProperty::SetObject(const NFGUID& value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_OBJECT));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_OBJECT));
 		mxData->SetObject(NFGUID());
 	}
 
@@ -459,7 +459,7 @@ bool NFProperty::SetObject(const NFGUID& value, const NFINT64 reason)
 
 bool NFProperty::SetVector2(const NFVector2& value, const NFINT64 reason)
 {
-	if (eType != TDATA_VECTOR2)
+	if (eType != NFDATA_TYPE::TDATA_VECTOR2)
 	{
 		return false;
 	}
@@ -472,7 +472,7 @@ bool NFProperty::SetVector2(const NFVector2& value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_VECTOR2));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_VECTOR2));
 		mxData->SetVector2(NFVector2());
 	}
 
@@ -500,7 +500,7 @@ bool NFProperty::SetVector2(const NFVector2& value, const NFINT64 reason)
 
 bool NFProperty::SetVector3(const NFVector3& value, const NFINT64 reason)
 {
-	if (eType != TDATA_VECTOR3)
+	if (eType != NFDATA_TYPE::TDATA_VECTOR3)
 	{
 		return false;
 	}
@@ -513,7 +513,7 @@ bool NFProperty::SetVector3(const NFVector3& value, const NFINT64 reason)
 			return false;
 		}
 
-		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(TDATA_VECTOR3));
+		mxData = NF_SHARE_PTR<NFData>(NF_NEW NFData(NFDATA_TYPE::TDATA_VECTOR3));
 		mxData->SetVector3(NFVector3());
 	}
 
@@ -565,22 +565,22 @@ std::string NFProperty::ToString()
 	const NFDATA_TYPE eType = GetType();
 	switch (eType)
 	{
-	case TDATA_INT:
+	case NFDATA_TYPE::TDATA_INT:
 		strData = lexical_cast<std::string> (GetInt());
 		break;
-	case TDATA_FLOAT:
+	case NFDATA_TYPE::TDATA_FLOAT:
 		strData = lexical_cast<std::string> (GetFloat());
 		break;
-	case TDATA_STRING:
+	case NFDATA_TYPE::TDATA_STRING:
 		strData = GetString();
 		break;
-	case TDATA_OBJECT:
+	case NFDATA_TYPE::TDATA_OBJECT:
 		strData = GetObject().ToString();
 		break;
-	case TDATA_VECTOR2:
+	case NFDATA_TYPE::TDATA_VECTOR2:
 		strData = GetVector2().ToString();
 		break;
-	case TDATA_VECTOR3:
+	case NFDATA_TYPE::TDATA_VECTOR3:
 		strData = GetVector3().ToString();
 		break;
 	default:
@@ -604,19 +604,19 @@ bool NFProperty::FromString(const std::string& strData)
 	{
 		switch (GetType())
 		{
-		case TDATA_INT:
+		case NFDATA_TYPE::TDATA_INT:
 			SetInt(lexical_cast<int64_t> (strData));
 			break;
 
-		case TDATA_FLOAT:
+		case NFDATA_TYPE::TDATA_FLOAT:
 			SetFloat(lexical_cast<float> (strData));
 			break;
 
-		case TDATA_STRING:
+		case NFDATA_TYPE::TDATA_STRING:
 			SetString(strData);
 			break;
 
-		case TDATA_OBJECT:
+		case NFDATA_TYPE::TDATA_OBJECT:
 		{
 			NFGUID xID;
 			xID.FromString(strData);
@@ -624,7 +624,7 @@ bool NFProperty::FromString(const std::string& strData)
 		}
 		break;
 
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 		{
 			NFVector2 v;
 			v.FromString(strData);
@@ -632,7 +632,7 @@ bool NFProperty::FromString(const std::string& strData)
 		}
 		break;
 
-		case TDATA_VECTOR3:
+		case NFDATA_TYPE::TDATA_VECTOR3:
 		{
 			NFVector3 v;
 			v.FromString(strData);
@@ -659,7 +659,7 @@ bool NFProperty::DeSerialization()
 	bool bRet = false;
 
 	const NFDATA_TYPE eType = GetType();
-	if (eType == TDATA_STRING && nullptr != mxData && !mxData->IsNullValue())
+	if (eType == NFDATA_TYPE::TDATA_STRING && nullptr != mxData && !mxData->IsNullValue())
 	{
 		NFDataList xDataList;
 		const std::string& strData = mxData->GetString();

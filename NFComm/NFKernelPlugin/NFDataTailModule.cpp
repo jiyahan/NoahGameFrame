@@ -204,7 +204,7 @@ int NFDataTailModule::OnObjectRecordEvent(const NFGUID& self, const RECORD_EVENT
 
     switch (eventData.nOpType)
     {
-        case RECORD_EVENT_DATA::Add:
+        case RECORD_EVENT_DATA::RecordOptype::Add:
         {
             NFDataList xDataList;
             bool bRet = xRecord->QueryRow(eventData.row, xDataList);
@@ -224,7 +224,7 @@ int NFDataTailModule::OnObjectRecordEvent(const NFGUID& self, const RECORD_EVENT
             }
         }
         break;
-        case RECORD_EVENT_DATA::Del:
+        case RECORD_EVENT_DATA::RecordOptype::Del:
         {
             stream << xRecord->GetName();
             stream << " Del Row[" << eventData.row << "]";
@@ -233,16 +233,16 @@ int NFDataTailModule::OnObjectRecordEvent(const NFGUID& self, const RECORD_EVENT
             PrintStackTrace();
         }
         break;
-        case RECORD_EVENT_DATA::Swap:
+        case RECORD_EVENT_DATA::RecordOptype::Swap:
         {
             stream << xRecord->GetName();
             stream << " Swap Row[" << eventData.row << "] Row[" << eventData.col << "]";
             //m_pLogModule->LogDebug(self, stream.str());
         }
         break;
-        case RECORD_EVENT_DATA::Create:
+        case RECORD_EVENT_DATA::RecordOptype::Create:
             break;
-        case RECORD_EVENT_DATA::Update:
+        case RECORD_EVENT_DATA::RecordOptype::Update:
         {
             stream << xRecord->GetName();
             stream << " UpData Row[" << eventData.row << "] Col[" << eventData.col << "]";
@@ -253,9 +253,9 @@ int NFDataTailModule::OnObjectRecordEvent(const NFGUID& self, const RECORD_EVENT
             PrintStackTrace();
         }
         break;
-        case RECORD_EVENT_DATA::Cleared:
+        case RECORD_EVENT_DATA::RecordOptype::Cleared:
             break;
-        case RECORD_EVENT_DATA::Sort:
+        case RECORD_EVENT_DATA::RecordOptype::Sort:
             break;
         default:
             break;

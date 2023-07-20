@@ -312,7 +312,7 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
         const NFDATA_TYPE eType = temProperty->GetType();
         switch (eType)
         {
-            case TDATA_INT:
+            case NFDATA_TYPE::TDATA_INT:
             {
                 if (!LegalNumber(pstrConfigValue))
                 {
@@ -321,7 +321,7 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
                 var.SetInt(lexical_cast<NFINT64>(pstrConfigValue));
             }
             break;
-            case TDATA_FLOAT:
+            case NFDATA_TYPE::TDATA_FLOAT:
             {
                 if (strlen(pstrConfigValue) <= 0 || !LegalFloat(pstrConfigValue))
                 {
@@ -330,12 +330,12 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
                 var.SetFloat((double)atof(pstrConfigValue));
             }
             break;
-            case TDATA_STRING:
+            case NFDATA_TYPE::TDATA_STRING:
                 {
                     var.SetString(pstrConfigValue);
                 }
                 break;
-            case TDATA_OBJECT:
+            case NFDATA_TYPE::TDATA_OBJECT:
             {
                 if (strlen(pstrConfigValue) <= 0)
                 {
@@ -344,7 +344,7 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
                 var.SetObject(NFGUID());
             }
             break;
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 			{
 				if (strlen(pstrConfigValue) <= 0)
 				{
@@ -359,7 +359,7 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
 				var.SetVector2(tmp);
 			}
 			break;
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 			{
 				if (strlen(pstrConfigValue) <= 0)
 				{
@@ -379,7 +379,7 @@ bool NFElementModule::Load(rapidxml::xml_node<>* attrNode, NF_SHARE_PTR<NFIClass
         }
 
         temProperty->SetValue(var);
-        if (eType == TDATA_STRING)
+        if (eType == NFDATA_TYPE::TDATA_STRING)
         {
             temProperty->DeSerialization();
         }

@@ -73,7 +73,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 
 	switch (oldVar.GetType())
 	{
-	case TDATA_INT:
+	case NFDATA_TYPE::TDATA_INT:
 	{
 		NFMsg::ObjectPropertyInt xPropertyInt;
 		NFMsg::Ident* pIdent = xPropertyInt.mutable_player_id();
@@ -92,7 +92,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 	}
 	break;
 
-	case TDATA_FLOAT:
+	case NFDATA_TYPE::TDATA_FLOAT:
 	{
 		NFMsg::ObjectPropertyFloat xPropertyFloat;
 		NFMsg::Ident* pIdent = xPropertyFloat.mutable_player_id();
@@ -111,7 +111,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 	}
 	break;
 
-	case TDATA_STRING:
+	case NFDATA_TYPE::TDATA_STRING:
 	{
 		NFMsg::ObjectPropertyString xPropertyString;
 		NFMsg::Ident* pIdent = xPropertyString.mutable_player_id();
@@ -130,7 +130,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 	}
 	break;
 
-	case TDATA_OBJECT:
+	case NFDATA_TYPE::TDATA_OBJECT:
 	{
 		NFMsg::ObjectPropertyObject xPropertyObject;
 		NFMsg::Ident* pIdent = xPropertyObject.mutable_player_id();
@@ -148,7 +148,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 		}
 	}
 	break;
-	case TDATA_VECTOR2:
+	case NFDATA_TYPE::TDATA_VECTOR2:
 	{
 		NFMsg::ObjectPropertyVector2 xPropertyVector2;
 		NFMsg::Ident* pIdent = xPropertyVector2.mutable_player_id();
@@ -166,7 +166,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEvent(const NFGUID & self, const std::
 		}
 	}
 	break;
-	case TDATA_VECTOR3:
+	case NFDATA_TYPE::TDATA_VECTOR3:
 	{
 		NFMsg::ObjectPropertyVector3 xPropertyVector3;
 		NFMsg::Ident* pIdent = xPropertyVector3.mutable_player_id();
@@ -198,7 +198,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 
 	switch (eventData.nOpType)
 	{
-	case RECORD_EVENT_DATA::Add:
+	case RECORD_EVENT_DATA::RecordOptype::Add:
 	{
 		NFMsg::ObjectRecordAddRow xAddRecordRow;
 		NFMsg::Ident* pIdent = xAddRecordRow.mutable_player_id();
@@ -220,7 +220,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 				{
 					switch (rowDataList.Type(i))
 					{
-					case TDATA_INT:
+					case NFDATA_TYPE::TDATA_INT:
 					{
 
 						int64_t nValue = rowDataList.Int(i);
@@ -231,7 +231,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 						pAddData->set_data(nValue);
 					}
 					break;
-					case TDATA_FLOAT:
+					case NFDATA_TYPE::TDATA_FLOAT:
 					{
 						double fValue = rowDataList.Float(i);
 
@@ -241,7 +241,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 						pAddData->set_data(fValue);
 					}
 					break;
-					case TDATA_STRING:
+					case NFDATA_TYPE::TDATA_STRING:
 					{
 						const std::string& str = rowDataList.String(i);
 						NFMsg::RecordString* pAddData = pAddRowData->add_record_string_list();
@@ -250,7 +250,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 						pAddData->set_data(str);
 					}
 					break;
-					case TDATA_OBJECT:
+					case NFDATA_TYPE::TDATA_OBJECT:
 					{
 						NFGUID identValue = rowDataList.Object(i);
 						NFMsg::RecordObject* pAddData = pAddRowData->add_record_object_list();
@@ -260,7 +260,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 						*pAddData->mutable_data() = NFINetModule::NFToPB(identValue);
 					}
 					break;
-					case TDATA_VECTOR2:
+					case NFDATA_TYPE::TDATA_VECTOR2:
 					{
 						NFVector2 vPos = rowDataList.Vector2(i);
 						NFMsg::RecordVector2* pAddData = pAddRowData->add_record_vector2_list();
@@ -269,7 +269,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 						*pAddData->mutable_data() = NFINetModule::NFToPB(vPos);
 					}
 					break;
-					case TDATA_VECTOR3:
+					case NFDATA_TYPE::TDATA_VECTOR3:
 					{
 						NFVector3 vPos = rowDataList.Vector3(i);
 						NFMsg::RecordVector3* pAddData = pAddRowData->add_record_vector3_list();
@@ -294,7 +294,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 		}
 	}
 	break;
-	case RECORD_EVENT_DATA::Del:
+	case RECORD_EVENT_DATA::RecordOptype::Del:
 	{
 		NFMsg::ObjectRecordRemove xReoveRecordRow;
 
@@ -312,7 +312,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 		}
 	}
 	break;
-	case RECORD_EVENT_DATA::Swap:
+	case RECORD_EVENT_DATA::RecordOptype::Swap:
 	{
 
 		NFMsg::ObjectRecordSwap xSwapRecord;
@@ -331,11 +331,11 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 		}
 	}
 	break;
-	case RECORD_EVENT_DATA::Update:
+	case RECORD_EVENT_DATA::RecordOptype::Update:
 	{
 		switch (oldVar.GetType())
 		{
-		case TDATA_INT:
+		case NFDATA_TYPE::TDATA_INT:
 		{
 			NFMsg::ObjectRecordInt xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -356,7 +356,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 		}
 		break;
 
-		case TDATA_FLOAT:
+		case NFDATA_TYPE::TDATA_FLOAT:
 		{
 			NFMsg::ObjectRecordFloat xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -375,7 +375,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 			}
 		}
 		break;
-		case TDATA_STRING:
+		case NFDATA_TYPE::TDATA_STRING:
 		{
 			NFMsg::ObjectRecordString xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -394,7 +394,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 			}
 		}
 		break;
-		case TDATA_OBJECT:
+		case NFDATA_TYPE::TDATA_OBJECT:
 		{
 			NFMsg::ObjectRecordObject xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -413,7 +413,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 			}
 		}
 		break;
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 		{
 			NFMsg::ObjectRecordVector2 xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -432,7 +432,7 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 			}
 		}
 		break;
-		case TDATA_VECTOR3:
+		case NFDATA_TYPE::TDATA_VECTOR3:
 		{
 			NFMsg::ObjectRecordVector3 xRecordChanged;
 			*xRecordChanged.mutable_player_id() = NFINetModule::NFToPB(NFGUID());
@@ -457,10 +457,10 @@ int NFSceneAutoBroadcastModule::OnRecordEvent(const NFGUID & self, const RECORD_
 		}
 	}
 	break;
-	case RECORD_EVENT_DATA::Create:
+	case RECORD_EVENT_DATA::RecordOptype::Create:
 		return 0;
 		break;
-	case RECORD_EVENT_DATA::Cleared:
+	case RECORD_EVENT_DATA::RecordOptype::Cleared:
 	{
 		//             NFMsg::ObjectRecordObject xRecordChanged;
 		//             xRecordChanged.set_player_id( self.nData64 );
@@ -515,7 +515,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 			{
 				switch (pPropertyInfo->GetType())
 				{
-				case TDATA_INT:
+				case NFDATA_TYPE::TDATA_INT:
 				{
 					if (pPropertyInfo->GetPublic())
 					{
@@ -526,7 +526,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 				}
 				break;
 
-				case TDATA_FLOAT:
+				case NFDATA_TYPE::TDATA_FLOAT:
 				{
 					if (pPropertyInfo->GetPublic())
 					{
@@ -537,7 +537,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 				}
 				break;
 
-				case TDATA_STRING:
+				case NFDATA_TYPE::TDATA_STRING:
 				{
 					if (pPropertyInfo->GetPublic())
 					{
@@ -548,7 +548,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 				}
 				break;
 
-				case TDATA_OBJECT:
+				case NFDATA_TYPE::TDATA_OBJECT:
 				{
 					if (pPropertyInfo->GetPublic())
 					{
@@ -559,7 +559,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 				}
 				break;
 
-				case TDATA_VECTOR2:
+				case NFDATA_TYPE::TDATA_VECTOR2:
 				{
 					if (pPropertyInfo->GetPublic())
 					{
@@ -569,7 +569,7 @@ int NFSceneAutoBroadcastModule::OnPropertyEnter(const NFDataList & argVar, const
 					}
 				}
 				break;
-				case TDATA_VECTOR3:
+				case NFDATA_TYPE::TDATA_VECTOR3:
 				{
 					if (pPropertyInfo->GetPublic())
 					{

@@ -55,9 +55,9 @@ bool NFHelloWorld2::AfterInit()
     NFIObject* pObject = new NFObject(NFGUID(0, 1), pPluginManager);
 
 	//add a property name is "Hello" for this object
-    pObject->GetPropertyManager()->AddProperty(pObject->Self(), "Hello", TDATA_STRING);
+    pObject->GetPropertyManager()->AddProperty(pObject->Self(), "Hello", NFDATA_TYPE::TDATA_STRING);
 	//add a property name is "World" for this object
-    pObject->GetPropertyManager()->AddProperty(pObject->Self(), "World", TDATA_INT);
+    pObject->GetPropertyManager()->AddProperty(pObject->Self(), "World", NFDATA_TYPE::TDATA_INT);
 
 	//set the "world" property value as 1111
     pObject->SetPropertyInt("World", 1111);

@@ -676,10 +676,10 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 
 		for (int iCol = 0; iCol < pRecord->GetCols(); iCol++)
 		{
-			const int type = pRecord->GetColType(iCol);
+			const NFDATA_TYPE type = pRecord->GetColType(iCol);
 			switch (type)
 			{
-			case TDATA_INT:
+			case NFDATA_TYPE::TDATA_INT:
 			{
 				NFMsg::RecordInt* pPropertyData = pRowData->add_record_int_list();
 				const NFINT64 xPropertyValue = pRecord->GetInt(iRow, iCol);
@@ -692,7 +692,7 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 				}
 			}
 			break;
-			case TDATA_FLOAT:
+			case NFDATA_TYPE::TDATA_FLOAT:
 			{
 				NFMsg::RecordFloat* pPropertyData = pRowData->add_record_float_list();
 				const double xPropertyValue = pRecord->GetFloat(iRow, iCol);
@@ -705,7 +705,7 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 				}
 			}
 			break;
-			case TDATA_STRING:
+			case NFDATA_TYPE::TDATA_STRING:
 			{
 				NFMsg::RecordString* pPropertyData = pRowData->add_record_string_list();
 				const std::string& xPropertyValue = pRecord->GetString(iRow, iCol);
@@ -719,7 +719,7 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 				}
 			}
 			break;
-			case TDATA_OBJECT:
+			case NFDATA_TYPE::TDATA_OBJECT:
 			{
 				NFMsg::RecordObject* pPropertyData = pRowData->add_record_object_list();
 				const NFGUID xPropertyValue = pRecord->GetObject(iRow, iCol);
@@ -732,7 +732,7 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 				}
 			}
 			break;
-			case TDATA_VECTOR2:
+			case NFDATA_TYPE::TDATA_VECTOR2:
 			{
 				NFMsg::RecordVector2* pPropertyData = pRowData->add_record_vector2_list();
 				const NFVector2 xPropertyValue = pRecord->GetVector2(iRow, iCol);
@@ -748,7 +748,7 @@ bool NFCommonRedisModule::ConvertRecordToPB(const NF_SHARE_PTR<NFIRecord> pRecor
 				}
 			}
 			break;
-			case TDATA_VECTOR3:
+			case NFDATA_TYPE::TDATA_VECTOR3:
 			{
 				NFMsg::RecordVector3* pPropertyData = pRowData->add_record_vector3_list();
 				const NFVector3 xPropertyValue = pRecord->GetVector3(iRow, iCol);

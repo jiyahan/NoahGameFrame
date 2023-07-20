@@ -131,7 +131,7 @@ int NFPropertyModule::OnObjectConfigIDEvent(const NFGUID& self, const std::strin
 int NFPropertyModule::OnRecordEvent(const NFGUID& self, const RECORD_EVENT_DATA& eventData, const NFData& oldVar, const NFData& newVar)
 {
 	const std::string& recordName = eventData.recordName;
-    const int nOpType = eventData.nOpType;
+    const RECORD_EVENT_DATA::RecordOptype nOpType = eventData.nOpType;
     const int row = eventData.row;
     const int col = eventData.col;
 

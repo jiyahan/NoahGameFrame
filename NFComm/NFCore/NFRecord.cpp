@@ -230,7 +230,7 @@ int NFRecord::AddRow(const int row, const NFDataList& var)
     }
 
 	RECORD_EVENT_DATA eventData;
-	eventData.nOpType = bCover? RECORD_EVENT_DATA::Cover : RECORD_EVENT_DATA::Add;
+	eventData.nOpType = bCover? RECORD_EVENT_DATA::RecordOptype::Cover : RECORD_EVENT_DATA::RecordOptype::Add;
 	eventData.row = nFindRow;
 	eventData.col = 0;
 	eventData.recordName = mstrRecordName;
@@ -275,7 +275,7 @@ bool NFRecord::SetRow(const int row, const NFDataList & var)
 		pVar->variantData = var.GetStack(i)->variantData;
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = i;
 		eventData.recordName = mstrRecordName;
@@ -294,7 +294,7 @@ bool NFRecord::SetInt(const int row, const int col, const NFINT64 value)
         return false;
     }
 
-    if (TDATA_INT != GetColType(col))
+    if (NFDATA_TYPE::TDATA_INT != GetColType(col))
     {
         return false;
     }
@@ -331,7 +331,7 @@ bool NFRecord::SetInt(const int row, const int col, const NFINT64 value)
 		pVar->SetInt(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -356,7 +356,7 @@ bool NFRecord::SetFloat(const int row, const int col, const double value)
         return false;
     }
 
-    if (TDATA_FLOAT != GetColType(col))
+    if (NFDATA_TYPE::TDATA_FLOAT != GetColType(col))
     {
         return false;
     }
@@ -393,7 +393,7 @@ bool NFRecord::SetFloat(const int row, const int col, const double value)
 		pVar->SetFloat(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -418,7 +418,7 @@ bool NFRecord::SetString(const int row, const int col, const std::string& value)
         return false;
     }
 
-    if (TDATA_STRING != GetColType(col))
+    if (NFDATA_TYPE::TDATA_STRING != GetColType(col))
     {
         return false;
     }
@@ -456,7 +456,7 @@ bool NFRecord::SetString(const int row, const int col, const std::string& value)
 		pVar->SetString(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -481,7 +481,7 @@ bool NFRecord::SetObject(const int row, const int col, const NFGUID& value)
         return false;
     }
 
-    if (TDATA_OBJECT != GetColType(col))
+    if (NFDATA_TYPE::TDATA_OBJECT != GetColType(col))
     {
         return false;
     }
@@ -519,7 +519,7 @@ bool NFRecord::SetObject(const int row, const int col, const NFGUID& value)
 		pVar->SetObject(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -544,7 +544,7 @@ bool NFRecord::SetVector2(const int row, const int col, const NFVector2& value)
 		return false;
 	}
 
-	if (TDATA_VECTOR2 != GetColType(col))
+	if (NFDATA_TYPE::TDATA_VECTOR2 != GetColType(col))
 	{
 		return false;
 	}
@@ -582,7 +582,7 @@ bool NFRecord::SetVector2(const int row, const int col, const NFVector2& value)
 		pVar->SetVector2(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -600,7 +600,7 @@ bool NFRecord::SetVector3(const int row, const int col, const NFVector3& value)
 		return false;
 	}
 
-	if (TDATA_VECTOR3 != GetColType(col))
+	if (NFDATA_TYPE::TDATA_VECTOR3 != GetColType(col))
 	{
 		return false;
 	}
@@ -638,7 +638,7 @@ bool NFRecord::SetVector3(const int row, const int col, const NFVector3& value)
 		pVar->SetVector3(value);
 
 		RECORD_EVENT_DATA eventData;
-		eventData.nOpType = RECORD_EVENT_DATA::Update;
+		eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Update;
 		eventData.row = row;
 		eventData.col = col;
 		eventData.recordName = mstrRecordName;
@@ -686,27 +686,27 @@ bool NFRecord::QueryRow(const int row, NFDataList& varList)
         {
             switch (GetColType(i))
             {
-                case TDATA_INT:
+                case NFDATA_TYPE::TDATA_INT:
                     varList.Add(NFINT64(0));
                     break;
 
-                case TDATA_FLOAT:
+                case NFDATA_TYPE::TDATA_FLOAT:
                     varList.Add(0.0f);
                     break;
 
-                case TDATA_STRING:
+                case NFDATA_TYPE::TDATA_STRING:
                     varList.Add(NULL_STR.c_str());
                     break;
 
-                case TDATA_OBJECT:
+                case NFDATA_TYPE::TDATA_OBJECT:
                     varList.Add(NFGUID());
                     break;
 
-				case TDATA_VECTOR2:
+				case NFDATA_TYPE::TDATA_VECTOR2:
 					varList.Add(NFVector2());
 					break;
 
-				case TDATA_VECTOR3:
+				case NFDATA_TYPE::TDATA_VECTOR3:
 					varList.Add(NFVector3());
 					break;
                 default:
@@ -901,27 +901,27 @@ int NFRecord::FindRowByColValue(const int col, const NFData& var, NFDataList& va
 
     switch (eType)
     {
-        case TDATA_INT:
+        case NFDATA_TYPE::TDATA_INT:
             return FindInt(col, var.GetInt(), varResult);
             break;
 
-        case TDATA_FLOAT:
+        case NFDATA_TYPE::TDATA_FLOAT:
             return FindFloat(col, var.GetFloat(), varResult);
             break;
 
-        case TDATA_STRING:
+        case NFDATA_TYPE::TDATA_STRING:
             return FindString(col, var.GetString(), varResult);
             break;
 
-        case TDATA_OBJECT:
+        case NFDATA_TYPE::TDATA_OBJECT:
             return FindObject(col, var.GetObject(), varResult);
             break;
 
-		case TDATA_VECTOR2:
+		case NFDATA_TYPE::TDATA_VECTOR2:
 			return FindVector2(col, var.GetVector2(), varResult);
 			break;
 
-        case TDATA_VECTOR3:
+        case NFDATA_TYPE::TDATA_VECTOR3:
 			return FindVector3(col, var.GetVector3(), varResult);
 			break;
 
@@ -945,7 +945,7 @@ int NFRecord::FindInt(const int col, const NFINT64 value, NFDataList& varResult)
         return -1;
     }
 
-    if (TDATA_INT != mVarRecordType->Type(col))
+    if (NFDATA_TYPE::TDATA_INT != mVarRecordType->Type(col))
     {
         return -1;
     }
@@ -988,7 +988,7 @@ int NFRecord::FindFloat(const int col, const double value, NFDataList& varResult
         return -1;
     }
 
-    if (TDATA_FLOAT != mVarRecordType->Type(col))
+    if (NFDATA_TYPE::TDATA_FLOAT != mVarRecordType->Type(col))
     {
         return -1;
     }
@@ -1027,7 +1027,7 @@ int NFRecord::FindString(const int col, const std::string& value, NFDataList& va
         return -1;
     }
 
-    if (TDATA_STRING != mVarRecordType->Type(col))
+    if (NFDATA_TYPE::TDATA_STRING != mVarRecordType->Type(col))
     {
         return -1;
     }
@@ -1072,7 +1072,7 @@ int NFRecord::FindObject(const int col, const NFGUID& value, NFDataList& varResu
         return -1;
     }
 
-    if (TDATA_OBJECT != mVarRecordType->Type(col))
+    if (NFDATA_TYPE::TDATA_OBJECT != mVarRecordType->Type(col))
     {
         return -1;
     }
@@ -1115,7 +1115,7 @@ int NFRecord::FindVector2(const int col, const NFVector2& value, NFDataList& var
 		return -1;
 	}
 
-	if (TDATA_VECTOR2 != mVarRecordType->Type(col))
+	if (NFDATA_TYPE::TDATA_VECTOR2 != mVarRecordType->Type(col))
 	{
 		return -1;
 	}
@@ -1158,7 +1158,7 @@ int NFRecord::FindVector3(const int col, const NFVector3& value, NFDataList& var
 		return -1;
 	}
 
-	if (TDATA_VECTOR3 != mVarRecordType->Type(col))
+	if (NFDATA_TYPE::TDATA_VECTOR3 != mVarRecordType->Type(col))
 	{
 		return -1;
 	}
@@ -1369,7 +1369,7 @@ bool NFRecord::Remove(const int row)
         if (IsUsed(row))
         {
 			RECORD_EVENT_DATA eventData;
-			eventData.nOpType = RECORD_EVENT_DATA::Del;
+			eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Del;
 			eventData.row = row;
 			eventData.col = 0;
 			eventData.recordName = mstrRecordName;
@@ -1378,7 +1378,7 @@ bool NFRecord::Remove(const int row)
 
 			mVecUsedState[row] = 0;
 
-			eventData.nOpType = RECORD_EVENT_DATA::AfterDel;
+			eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::AfterDel;
 
 			OnEventHandler(mSelf, eventData, NFData(), NFData());
 
@@ -1541,7 +1541,7 @@ bool NFRecord::SwapRowInfo(const int nOriginRow, const int nTargetRow)
         mVecUsedState[nTargetRow] = nOriginUse;
 
         RECORD_EVENT_DATA eventData;
-        eventData.nOpType = RECORD_EVENT_DATA::Swap;
+        eventData.nOpType = RECORD_EVENT_DATA::RecordOptype::Swap;
         eventData.row = nOriginRow;
         eventData.col = nTargetRow;
         eventData.recordName = mstrRecordName;
